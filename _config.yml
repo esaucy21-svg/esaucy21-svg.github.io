@@ -28,7 +28,6 @@ github_username: esaucy21-svg
 # Build settings
 theme: jekyll-theme-cayman
 plugins:
-  - jekyll-remote-theme
   - jekyll-feed
 
 # Exclude from processing.
