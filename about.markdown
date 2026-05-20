@@ -3,7 +3,7 @@ layout: default
 title: About
 permalink: /about/
 ---
-
+<img src="/assets/images/profile.jpg" alt="Hadassah" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; margin: 2rem auto; border: 4px solid #7c3aed;">
 ## Hello There, I'm Hadassah 👋
 
 Welcom to my attachment journal - a personal space where i get to document my experiences in this lovely journey.
