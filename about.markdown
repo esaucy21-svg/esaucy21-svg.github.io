@@ -19,5 +19,5 @@ I strongly believe that putting my feelings into words is one of the most powerf
 ## A little sneak peak about me
 
 I am just a girl who loves tring new things that are unique and rare and also believes in showing up fully - even when it seems to be so hard.
----
 *Thank you for being here. I hope something that i write somehow resonates with you too.*
+---
