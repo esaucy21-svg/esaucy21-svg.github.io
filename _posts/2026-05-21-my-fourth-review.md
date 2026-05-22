@@ -1,4 +1,4 @@
-
+---
 layout: post
 title:  "Smooth Progress"
 date:   2026-05-21
