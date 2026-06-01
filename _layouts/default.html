@@ -4,24 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jekyll-theme-slate@0.2.0/assets/css/style.css">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: "Open Sans", Arial, sans-serif; background: #1a1a2e; color: #eee; }
+
+      .top-nav {
+        background: #0d0d1a;
+        padding: 12px 24px;
+        display: flex;
+        gap: 16px;
+        border-bottom: 1px solid #333;
+      }
+      .top-nav a {
+        color: #7fdbff;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+      .top-nav a:hover { background: #222244; }
+
+      .page-header {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        padding: 48px 24px 36px;
+        text-align: center;
+      }
+      .page-header h1 { font-size: 2.2rem; color: #fff; margin-bottom: 12px; }
+      .page-header p { color: #c4b5fd; font-size: 0.95rem; }
+
+      .main-content {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 40px 24px;
+        color: #ddd;
+        line-height: 1.8;
+      }
+      .main-content h1, .main-content h2 { color: #fff; margin-bottom: 16px; }
+      .main-content a { color: #7fdbff; }
+      .main-content ul { padding-left: 20px; }
+      .main-content li { margin-bottom: 10px; }
+
+      .site-footer {
+        text-align: center;
+        padding: 24px;
+        color: #666;
+        font-size: 0.85rem;
+        border-top: 1px solid #333;
+        margin-top: 40px;
+      }
+    </style>
   </head>
   <body>
-    <section class="page-header">
-      <h1 class="project-name">{{ site.title }}</h1>
-      <h2 class="project-tagline">{{ site.description }}</h2>
-      <nav>
-        <a href="{{ '/' | relative_url }}" class="btn">Home</a>
-        <a href="{{ '/posts/' | relative_url }}" class="btn">Posts</a>
-        <a href="{{ '/photos/' | relative_url }}" class="btn">Photos</a>
-        <a href="{{ '/about/' | relative_url }}" class="btn">About</a>
-      </nav>
-    </section>
+
+    <nav class="top-nav">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/posts/' | relative_url }}">Posts</a>
+      <a href="{{ '/photos/' | relative_url }}">Photos</a>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+    </nav>
+
+    <div class="page-header">
+      <h1>{{ site.title }}</h1>
+      <p>{{ site.description }}</p>
+    </div>
+
     <section class="main-content">
       {{ content }}
-      <footer class="site-footer">
-        <span class="site-footer-credits">{{ site.title }} &mdash; written with heart 🌙</span>
-      </footer>
     </section>
+
+    <footer class="site-footer">
+      {{ site.title }} &mdash; written with heart 🌙
+    </footer>
+
   </body>
 </html>
