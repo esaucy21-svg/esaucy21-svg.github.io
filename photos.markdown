@@ -6,7 +6,7 @@ permalink: /photos/
 ## My Photos
 
 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-  <img src="{{ site.baseurl }}/assets/images/ph1.jpg" alt="Photo 1">
-  <img src="{{ site.baseurl }}/assets/images/ph2.jpg" alt="Photo 2">
-  <img src="{{ site.baseurl }}/assets/images/ph3.jpg" alt="Photo 3">
+  <img src="{{ site.url }}/assets/images/ph1.jpeg" alt="Photo 1" style="width:100%">
+  <img src="{{ site.url }}/assets/images/ph2.jpeg" alt="Photo 2" style="width:100%">
+  <img src="{{ site.url }}/assets/images/ph3.jpeg" alt="Photo 3" style="width:100%">
 </div>
