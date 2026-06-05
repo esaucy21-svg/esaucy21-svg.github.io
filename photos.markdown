@@ -34,6 +34,34 @@ permalink: /photos/
   <a href="#" onclick="openLight('{{ site.url }}/assets/images/ph3.jpeg'); return false;">
     <img src="{{ site.url }}/assets/images/ph3.jpeg" alt="Photo 3">
   </a>
+
+  <a href="#" onclick="openLight('{{ site.url }}/assets/images/ph4.jpeg'); return false;">
+    <img src="{{ site.url }}/assets/images/ph4.jpeg" alt="Photo 4">
+  </a>
+
+  <a href="#" onclick="openLight('{{ site.url }}/assets/images/ph5.jpeg'); return false;">
+    <img src="{{ site.url }}/assets/images/ph5.jpeg" alt="Photo 5">
+  </a>
+
+  <a href="#" onclick="openLight('{{ site.url }}/assets/images/ph6.jpeg'); return false;">
+    <img src="{{ site.url }}/assets/images/ph6.jpeg" alt="Photo 6">
+  </a>
+
+  <a href="#" onclick="openLight('{{ site.url }}/assets/images/ph7.jpeg'); return false;">
+    <img src="{{ site.url }}/assets/images/ph7.jpeg" alt="Photo 7">
+  </a>
+
+  <a href="#" onclick="openLight('{{ site.url }}/assets/images/ph8.jpeg'); return false;">
+    <img src="{{ site.url }}/assets/images/ph8.jpeg" alt="Photo 8">
+  </a>
+ 
+  <a href="#" onclick="openLight('{{ site.url }}/assets/images/ph9.jpeg'); return false;">
+    <img src="{{ site.url }}/assets/images/ph9.jpeg" alt="Photo 9">
+  </a>
+
+  <a href="#" onclick="openLight('{{ site.url }}/assets/images/ph10.jpeg'); return false;">
+    <img src="{{ site.url }}/assets/images/ph10.jpeg" alt="Photo 10">
+  </a>
 </div>
 
 <script>
