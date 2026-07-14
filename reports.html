@@ -1,0 +1,196 @@
+---
+layout: default
+title: My Reports
+permalink: /reports/
+---
+
+<style>
+.dash-hero { text-align:center; padding:24px 0 32px; border-bottom:1px solid #2a2a4a; margin-bottom:28px; }
+.dash-hero h2 { font-size:1.6rem; color:#38bdf8; margin-bottom:6px; }
+.dash-hero p { color:#9090b0; font-size:0.9rem; }
+.count-badge { display:inline-block; font-size:0.75rem; padding:3px 10px; border-radius:20px; font-weight:600; background:#0c2840; color:#38bdf8; margin-left:8px; vertical-align:middle; }
+.add-form { background:#111125; border:1px solid #2a2a4a; border-radius:10px; padding:20px; margin-bottom:28px; }
+.add-form h3 { font-size:0.95rem; color:#38bdf8; margin-bottom:14px; font-weight:700; }
+.add-form input[type="text"], .add-form textarea { width:100%; background:#0f0f1e; border:1px solid #2a2a4a; border-radius:6px; color:#e0e0f0; font-family:inherit; font-size:0.88rem; padding:10px 12px; margin-bottom:10px; outline:none; transition:border-color 0.2s; resize:vertical; }
+.add-form input:focus, .add-form textarea:focus { border-color:#38bdf8; }
+.upload-section { border:2px dashed #2a2a4a; border-radius:8px; padding:16px; text-align:center; margin-bottom:10px; cursor:pointer; transition:border-color 0.2s,background 0.2s; }
+.upload-section:hover { border-color:#38bdf8; background:#16162a; }
+.upload-section input[type="file"] { display:none; }
+.upload-label { cursor:pointer; color:#9090b0; font-size:0.85rem; display:block; }
+.upload-label span { color:#38bdf8; font-weight:600; }
+.upload-label .ui { font-size:1.5rem; display:block; margin-bottom:6px; }
+.file-preview { font-size:0.8rem; color:#38bdf8; margin-top:6px; display:none; }
+.btn-row { display:flex; gap:10px; flex-wrap:wrap; }
+.btn-add-report { background:#0284c7; color:#fff; border:none; border-radius:6px; padding:10px 20px; font-size:0.88rem; font-weight:600; cursor:pointer; transition:opacity 0.2s; }
+.btn-add-report:hover { opacity:0.85; }
+.btn-upload-report { background:#0c2840; color:#38bdf8; border:1px solid #38bdf8; border-radius:6px; padding:10px 20px; font-size:0.88rem; font-weight:600; cursor:pointer; }
+.btn-upload-report:hover { background:#0f3050; }
+.search-bar { width:100%; background:#111125; border:1px solid #2a2a4a; border-radius:6px; color:#e0e0f0; font-family:inherit; font-size:0.88rem; padding:10px 14px; outline:none; margin-bottom:20px; transition:border-color 0.2s; }
+.search-bar:focus { border-color:#38bdf8; }
+.reports-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+.report-card { background:#16162a; border:1px solid #2a2a4a; border-radius:10px; padding:16px; transition:border-color 0.2s,transform 0.15s; position:relative; }
+.report-card:hover { border-color:#38bdf8; transform:translateY(-2px); }
+.report-title { font-size:0.95rem; font-weight:700; color:#e0e0f0; margin-bottom:8px; padding-right:100px; }
+.report-body { font-size:0.82rem; color:#9090b0; line-height:1.55; white-space:pre-wrap; word-break:break-word; max-height:120px; overflow:hidden; }
+.report-body.expanded { max-height:none; }
+.report-date { font-size:0.72rem; color:#555575; margin-top:10px; }
+.report-source { font-size:0.7rem; color:#0284c7; margin-top:2px; }
+.report-actions { position:absolute; top:12px; right:12px; display:flex; gap:4px; }
+.btn-icon { background:none; border:1px solid #2a2a4a; border-radius:4px; color:#888; cursor:pointer; font-size:0.75rem; padding:3px 6px; transition:all 0.15s; }
+.btn-icon.del:hover { border-color:#ff6b6b; color:#ff6b6b; }
+.btn-icon.edt:hover { border-color:#38bdf8; color:#38bdf8; }
+.btn-icon.exp:hover { border-color:#a78bfa; color:#a78bfa; }
+.empty-state { text-align:center; color:#555580; font-size:0.85rem; padding:60px 20px; grid-column:1/-1; }
+.empty-state .ei { font-size:2.5rem; margin-bottom:10px; }
+.modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; justify-content:center; align-items:center; }
+.modal-overlay.active { display:flex; }
+.modal { background:#16162a; border:1px solid #2a2a4a; border-radius:12px; padding:24px; width:90%; max-width:520px; }
+.modal h3 { color:#38bdf8; margin-bottom:16px; }
+.modal input, .modal textarea { width:100%; background:#0f0f1e; border:1px solid #2a2a4a; border-radius:6px; color:#e0e0f0; font-family:inherit; font-size:0.88rem; padding:10px 12px; margin-bottom:10px; outline:none; resize:vertical; }
+.modal input:focus, .modal textarea:focus { border-color:#38bdf8; }
+.modal-btns { display:flex; gap:8px; justify-content:flex-end; margin-top:4px; }
+.btn-save { background:#0284c7; color:#fff; border:none; border-radius:6px; padding:8px 18px; cursor:pointer; font-weight:600; }
+.btn-cancel { background:#2a2a4a; color:#aaa; border:none; border-radius:6px; padding:8px 18px; cursor:pointer; }
+</style>
+
+<div class="dash-hero">
+  <h2>📄 My Reports <span class="count-badge" id="reports-count">0</span></h2>
+  <p>Write reports directly or upload a file from your computer</p>
+</div>
+
+<div class="add-form">
+  <h3>➕ Add a New Report</h3>
+  <input type="text" id="report-title" placeholder="Report title...">
+  <textarea id="report-body" rows="4" placeholder="Write your report content here..."></textarea>
+  <div class="upload-section" onclick="document.getElementById('report-file').click()">
+    <input type="file" id="report-file" accept=".txt,.md" onchange="previewFile()">
+    <label class="upload-label">
+      <span class="ui">📁</span>
+      <span>Click to upload a file from your desktop</span><br>
+      Supports .txt and .md files
+    </label>
+    <div class="file-preview" id="report-file-name"></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn-add-report" onclick="addReport()">+ Add Report</button>
+    <button class="btn-upload-report" onclick="importReport()">📤 Import from File</button>
+  </div>
+</div>
+
+<input type="text" class="search-bar" id="search-reports" placeholder="🔍 Search reports..." oninput="renderReports()">
+
+<div class="reports-grid" id="reports-grid"></div>
+
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <h3>✏️ Edit Report</h3>
+    <input type="text" id="edit-title" placeholder="Title...">
+    <textarea id="edit-body" rows="6" placeholder="Content..."></textarea>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const REPORTS_KEY = 'journal_reports_v2';
+let reports = JSON.parse(localStorage.getItem(REPORTS_KEY) || '[]');
+let editingId = null;
+
+function save() { localStorage.setItem(REPORTS_KEY, JSON.stringify(reports)); }
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function formatDate(ts) { return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+
+function previewFile() {
+  const f = document.getElementById('report-file').files[0];
+  const p = document.getElementById('report-file-name');
+  if (f) { p.style.display='block'; p.textContent='📎 '+f.name; }
+}
+
+function addReport() {
+  const title = document.getElementById('report-title').value.trim();
+  const body = document.getElementById('report-body').value.trim();
+  if (!title && !body) { alert('Please enter a title or content.'); return; }
+  reports.unshift({id:Date.now(), title:title||'Untitled', body, ts:Date.now(), source:'typed'});
+  save();
+  document.getElementById('report-title').value='';
+  document.getElementById('report-body').value='';
+  renderReports();
+}
+
+function importReport() {
+  const file = document.getElementById('report-file').files[0];
+  if (!file) { alert('Please select a file first using the upload area above.'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const title = file.name.replace(/\.[^.]+$/,'');
+    reports.unshift({id:Date.now(), title, body:e.target.result, ts:Date.now(), source:file.name});
+    save();
+    document.getElementById('report-file').value='';
+    document.getElementById('report-file-name').style.display='none';
+    renderReports();
+  };
+  reader.readAsText(file);
+}
+
+function deleteReport(id) {
+  if (!confirm('Delete this report permanently?')) return;
+  reports = reports.filter(r=>r.id!==id);
+  save(); renderReports();
+}
+
+function openEdit(id) {
+  const r = reports.find(r=>r.id===id);
+  if (!r) return;
+  editingId = id;
+  document.getElementById('edit-title').value = r.title;
+  document.getElementById('edit-body').value = r.body;
+  document.getElementById('edit-modal').classList.add('active');
+}
+
+function saveEdit() {
+  const r = reports.find(r=>r.id===editingId);
+  if (!r) return;
+  r.title = document.getElementById('edit-title').value.trim()||'Untitled';
+  r.body = document.getElementById('edit-body').value.trim();
+  r.ts = Date.now();
+  save(); closeModal(); renderReports();
+}
+
+function closeModal() { document.getElementById('edit-modal').classList.remove('active'); editingId=null; }
+
+function toggleExpand(id) {
+  const el = document.getElementById('body-'+id);
+  const btn = document.getElementById('exp-'+id);
+  el.classList.toggle('expanded');
+  btn.textContent = el.classList.contains('expanded') ? '↕ Less' : '↕ More';
+}
+
+function renderReports() {
+  const q = document.getElementById('search-reports').value.toLowerCase();
+  const filtered = reports.filter(r=>r.title.toLowerCase().includes(q)||r.body.toLowerCase().includes(q));
+  document.getElementById('reports-count').textContent = reports.length;
+  const grid = document.getElementById('reports-grid');
+  if (filtered.length===0) {
+    grid.innerHTML=`<div class="empty-state"><div class="ei">📄</div>${q?'No reports match your search.':'No reports yet.<br>Add your first report above or import a file.'}</div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map(r=>`
+    <div class="report-card">
+      <div class="report-actions">
+        <button class="btn-icon exp" id="exp-${r.id}" onclick="toggleExpand(${r.id})">↕ More</button>
+        <button class="btn-icon edt" onclick="openEdit(${r.id})">✏️</button>
+        <button class="btn-icon del" onclick="deleteReport(${r.id})">🗑️</button>
+      </div>
+      <div class="report-title">${escHtml(r.title)}</div>
+      <div class="report-body" id="body-${r.id}">${escHtml(r.body)}</div>
+      <div class="report-date">🕒 ${formatDate(r.ts)}</div>
+      ${r.source&&r.source!=='typed'?`<div class="report-source">📁 Imported: ${escHtml(r.source)}</div>`:''}
+    </div>
+  `).join('');
+}
+
+document.getElementById('edit-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+renderReports();
+</script>
